@@ -25,7 +25,7 @@ class Botclima:
         
         respuesta = requests.get(self.url, params=params).json()
         
-        if respuesta["cod"] != "200":
+        if str(respuesta["cod"]) != "200":
             print(f"❌ Error: {respuesta['message']}")
             return
         
@@ -39,10 +39,8 @@ class Botclima:
         print(informaciom_clima)
         
         log_path.parent.mkdir(exist_ok=True)  # Crear carpeta logs si no existe
-        with open(log_path, "a", encoding="utf-8") as log_file:
-            log_file.write(f"{datetime.now()}\n" + informaciom_clima + "\n" + "-"*40 + "\n")
-        
-        
+        with open(log_path, "a", encoding="utf-8") as log:
+            log.write(f"{datetime.now()}\n" + informaciom_clima + "\n" + "-"*40 + "\n") 
         
         
 if __name__ == "__main__":
